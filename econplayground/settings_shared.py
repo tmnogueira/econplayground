@@ -61,8 +61,9 @@ INSTALLED_APPS = [  # noqa
     'registration',
     'rest_framework',
     'lti_provider',
+    'import_export',
     'econplayground.main',
-    'contactus'
+    'contactus',
 ]
 
 CONTACT_US_EMAIL = 'ctl-econ-playground@columbia.edu'
