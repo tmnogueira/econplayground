@@ -84,6 +84,32 @@ class GraphDetailView(LoginRequiredMixin, DetailView):
         return HttpResponseRedirect(url)
 
 
+class GraphCloneView(LoginRequiredMixin, DetailView):
+    model = Graph
+    template_name = 'main/graph_clone.html'
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(GraphCloneView, self).get_context_data(*args, **kwargs)
+
+        submissions = Submission.objects.filter(
+            user=self.request.user).order_by('-created_at')
+        ctx['cohorts'] = Cohort.objects.filter(
+            instructors__in=(self.request.user,)).order_by('created_at')
+
+        return ctx
+
+    def post(self, request, pk):
+        return_url = request.POST.get('return_url', '')
+
+        path = reverse('graph_embed', kwargs={'pk': pk})
+        iframe_url = '{}://{}{}'.format(
+            self.request.scheme, self.request.get_host(), path)
+
+        url = '{}?return_type=iframe&width={}&height={}&url={}'.format(
+            return_url, 640, 600, iframe_url)
+        return HttpResponseRedirect(url)
+
+
 class GraphEmbedView(CsrfExemptMixin, LTIAuthMixin, DetailView):
     model = Graph
     template_name = 'main/graph_embed.html'

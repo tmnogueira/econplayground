@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Cohort{% endblock %}
+
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'cohort_list' %}">
+                    {% include 'main/your_cohorts_snippet.html' %}
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url 'cohort_detail' object.pk %}">
+                    {{ object.title|truncatewords:5 }}
+                </a>
+            </li>
+            <li class="breadcrumb-item">Delete Cohort</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block pagetitle %}
+    Clone Cohort
+{% endblock %}
+
+{% block content %}
+    {% if not readonly %}
+        <p>
+            Where do you want to clone <span class="font-weight-bold">{{object.title}}</span> to?
+        </p>
+
+        <form>
+            <div class="input-group">
+                <label>
+                    Course
+                    <select class="form-control">
+                        {% for c in cohorts %}
+                            <option value="{{c.pk}}">{{c.title}}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+            <div class="input-group">
+                <label>
+                    Topic
+                    <select disabled class="form-control">
+                        <option>Topic</option>
+                    </select>
+                </label>
+            </div>
+        </form>
+    {% endif %}
+
+    <form action="." method="post">{% csrf_token %}
+        <div class="row">
+            <div class="col-md-2 mb-1 pr-0">
+                <button type="submit" class="btn btn-block btn-primary">Clone</button>
+            </div>
+            <div class="col-md-2 mb-1 pr-0">
+                <a class="btn btn-block btn-secondary" href="{% url 'cohort_detail' object.pk %}">Cancel</a>
+            </div>
+        </div>
+    </form>
+{% endblock %}

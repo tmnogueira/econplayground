@@ -18,6 +18,7 @@ class GraphTest(TestCase):
         self.x.full_clean()
 
     def test_clone(self):
+        self.assertEqual(Graph.objects.count(), 1)
         original = GraphFactory(title='cloned graph')
         cloned = original.clone()
 
@@ -37,6 +38,7 @@ class GraphTest(TestCase):
         self.assertEqual(original.topic, cloned.topic)
         self.assertEqual(original.a1, cloned.a1)
         self.assertEqual(original.a1_name, cloned.a1_name)
+        self.assertEqual(Graph.objects.count(), 3)
 
 
 class JXGLineTest(TestCase):

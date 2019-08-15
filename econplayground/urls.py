@@ -36,6 +36,8 @@ urlpatterns = [
 
     path('graph/<int:pk>/',
          views.GraphDetailView.as_view(), name='graph_detail'),
+    path('graph/<int:pk>/clone/',
+         views.GraphCloneView.as_view(), name='graph_clone'),
     path('graph/<int:pk>/embed/',
          views.GraphEmbedView.as_view(), name='graph_embed'),
     path('graph/<int:pk>/public/',
