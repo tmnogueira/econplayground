@@ -418,7 +418,7 @@ class AssessmentRule(models.Model):
     feedback_fulfilled = models.TextField(blank=True, default='')
     feedback_unfulfilled = models.TextField(blank=True, default='')
     score = models.DecimalField(
-        max_digits=6, decimal_places=2, default=Decimal('0'))
+        max_digits=8, decimal_places=4, default=Decimal('0'))
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
