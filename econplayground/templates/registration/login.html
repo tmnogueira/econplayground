@@ -99,16 +99,13 @@
                 </button>
             </div>
             <div class="modal-body text-center">
-                {% if CAS_BASE %}
-                <form method="get" action="{{ CAS_BASE }}cas/login">
-                    <input type="hidden" name="destination"
-                        value="https://{{ request.get_host }}/accounts/caslogin/?next=" />
+                <form method="get" action="/cas/login">
+                    <input type="hidden" name="next" value="/" />
                     <h6>If you have a Columbia University Network ID
                         (UNI)...</h6>
                     <input class="btn btn-primary" type="submit"
                         value="Columbia Log In" />
                 </form>
-                {% endif %}
                 <p class="mt-2">
                     <a href="http://cuit.columbia.edu/cuit/manage-my-uni"
                         title="Learn more about UNI" target="_blank">What is a UNI?</a>
@@ -116,7 +113,7 @@
                 <!-- End UNI LOG IN -->
                 {% if form.errors %}
                 <p class="text-danger">
-                    <span> <b>ERROR:</b> Invalid username or password. </span>
+                    <span> <strong>ERROR:</strong> Invalid username or password. </span>
                     Please try again. Note that both username and password are case-sensitive.
                 </p>
                 {% endif %}
@@ -124,7 +121,7 @@
                 <h6>If you have a guest account...</h6>
                 <form id="login-local" name="login_local" method="post" action="/accounts/login/">
                     <p class="local-login-errors text-danger" style="display: none;">
-                        <span><b>Invalid username or password.</b></span>
+                        <span><strong>Invalid username or password.</strong></span>
                         Please try again. Note that both username and password are case-sensitive.
                     </p>
 

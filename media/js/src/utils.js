@@ -4,11 +4,14 @@ define(['jquery'], function($) {
             evt.preventDefault();
 
             var $frm = jQuery('form#login-local');
+            var data = $(evt.target).serialize();
+            data['csrfmiddlwaretoken'] =
+                document.getElementsByName('csrfmiddlewaretoken')[0].value;
 
             $.ajax({
                 type: 'POST',
                 url: evt.target.action,
-                data: $(evt.target).serialize(),
+                data: data,
                 success: function(response) {
                     if ('error' in response) {
                         $frm.find('.local-login-errors').show();
